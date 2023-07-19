@@ -692,10 +692,10 @@
         (key-place column row (translate [5 0 0] (wire-post  1 0)))))))
 
 
-(def connector-box-pos [-50 40.1 0])
-(def connector-box-height 50)
+(def connector-box-pos [-55 50.1 0])
+(def connector-box-height 40)
 (def connector-box-width 60)
-(def connector-box-depth 20)
+(def connector-box-depth 40)
 (def connector-box-frame-thickness 5)
 (def connector-box-ridge-thickness 2)
 (def connector-box-ridge-depth 3)
@@ -733,7 +733,7 @@
 
 (def model-right 
   (union 
-    ; connector-bar
+    (translate (map + connector-box-pos [0 0 -100]) connector-bar) 
     (difference
       (union
         key-holes
