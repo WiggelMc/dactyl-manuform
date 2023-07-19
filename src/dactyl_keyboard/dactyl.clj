@@ -693,52 +693,76 @@
 
 
 (def connector-box-pos [-50 40.1 0])
-(def connector-box-height 45)
-(def connector-box-width 40)
+(def connector-box-height 50)
+(def connector-box-width 60)
 (def connector-box-depth 20)
-(def connector-box-frame-thickness 2)
-(def connector-box-ridge-thickness 1)
+(def connector-box-frame-thickness 5)
+(def connector-box-ridge-thickness 2)
 (def connector-box-ridge-depth 3)
 
 (def connector-frame
-  (translate (map + connector-box-pos [0 0 (- connector-box-height 20)])
+  (translate (map + connector-box-pos [0 0 (/ (+ connector-box-height connector-box-frame-thickness) 2)])
    (cube (+ connector-box-width (* connector-box-frame-thickness 2)) connector-box-depth (+ connector-box-height connector-box-frame-thickness)))
 )
 
+(def connector-bar-block
+  (translate [0 0 (/ connector-box-height 2)] 
+    (cube connector-box-width connector-box-depth connector-box-height)
+  )
+)
+
 (def connector-hole
-  (translate (map + connector-box-pos [0 0 (- connector-box-height 22)])
+  (translate connector-box-pos
     (union 
-      (cube connector-box-width (+ connector-box-depth 1) (+ connector-box-height 2))
-      (cube (+ connector-box-width (* connector-box-ridge-thickness 2)) connector-box-ridge-depth (+ connector-box-height (* connector-box-ridge-thickness 2) 2))
+      connector-bar
+      (translate [0 0 -2] connector-bar)
+      (translate [0 2 0] connector-bar-block)
+      (translate [0 -2 0] connector-bar-block)
     )
   )
 )
 
-(def model-right (difference
-                   (union
-                    key-holes
-                    connectors
-                    thumb
-                    thumb-connectors
-                    (difference (union case-walls
-                                       screw-insert-outers
-                                       ; teensy-holder)
-                                       ; usb-holder)
-                                       )
-                                ; rj9-space
-                                ; usb-holder-hole
-                                screw-insert-holes)
-                    ; rj9-holder
-                    ; wire-posts
-                    ; thumbcaps
-                    ; caps
-                    connector-frame
-                    )
-                   (union 
-                    (translate [0 0 -20] (cube 350 350 40))
-                    connector-hole
-                    )
-                  ))
+(def connector-bar
+  (union
+    connector-bar-block
+    (translate [0 0 (/ (+ connector-box-height connector-box-ridge-thickness) 2)]
+      (cube (+ connector-box-width (* connector-box-ridge-thickness 2)) connector-box-ridge-depth (+ connector-box-height connector-box-ridge-thickness))
+    )
+  )
+)
+
+(def model-right 
+  (union 
+    ; connector-bar
+    (difference
+      (union
+        key-holes
+        connectors
+        thumb
+        thumb-connectors
+        (difference 
+          (union case-walls
+            screw-insert-outers
+            ; teensy-holder
+            ; usb-holder
+          )
+          ; rj9-space
+          ; usb-holder-hole
+          screw-insert-holes
+        )
+        ; rj9-holder
+        ; wire-posts
+        ; thumbcaps
+        ; caps
+        connector-frame
+      )
+      (union 
+        (translate [0 0 -20] (cube 350 350 40))
+        connector-hole
+      )
+    )
+  )
+)
 
 (spit "things/right.scad"
       (write-scad model-right))
