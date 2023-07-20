@@ -711,22 +711,22 @@
   )
 )
 
-(def connector-hole
-  (translate connector-box-pos
-    (union 
-      connector-bar
-      (translate [0 0 -2] connector-bar)
-      (translate [0 2 0] connector-bar-block)
-      (translate [0 -2 0] connector-bar-block)
-    )
-  )
-)
-
 (def connector-bar
   (union
     connector-bar-block
     (translate [0 0 (/ (+ connector-box-height connector-box-ridge-thickness) 2)]
       (cube (+ connector-box-width (* connector-box-ridge-thickness 2)) connector-box-ridge-depth (+ connector-box-height connector-box-ridge-thickness))
+    )
+  )
+)
+
+(def connector-hole
+  (translate connector-box-pos
+    (union
+      connector-bar
+      (translate [0 0 -2] connector-bar)
+      (translate [0 2 0] connector-bar-block)
+      (translate [0 -2 0] connector-bar-block)
     )
   )
 )
