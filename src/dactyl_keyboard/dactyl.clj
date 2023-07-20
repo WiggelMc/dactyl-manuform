@@ -740,10 +740,10 @@
       )
       (translate [0 (/ connector-box-depth 2) 7.5]
         (union
-          (translate [-21.5 0 0] (cube 9 1 4.5))
-          (translate [-21.5 0 17] (cube 11 1 15))
-          (translate [10 0 17] (cube 2.5 1 2.5))
-          (translate [10 0 8] (cube 10 1 5))
+          (translate [-21.5 0 0] (cube 9 (* 10 2) 4.5))
+          (translate [-21.5 0 17] (cube 11 (* 10 2) 15))
+          (translate [10 0 17] (cube 2.5 (* 10 2) 2.5))
+          (translate [10 0 8] (cube 10 (* 10 2) 5))
         )
       )
     )
