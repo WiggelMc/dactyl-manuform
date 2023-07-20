@@ -735,6 +735,9 @@
   (difference
     connector-bar
     (union
+      (translate [0 -1.5 (/ connector-box-height 2)]
+        (cube (- connector-box-width 2) (- connector-box-depth 1) (- connector-box-height 2))
+      )
       (translate [0 (/ connector-box-depth 2) 7.5]
         (union
           (translate [-21.5 0 0] (cube 9 1 4.5))
