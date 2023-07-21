@@ -750,7 +750,8 @@
           ; rj9
           (translate [-21.5 0 17]
             (cube 11 (* 2 2) 15)
-            ; ? ? ?
+            ; 14 * 16
+            ; plunges
           )
 
           ; reset
