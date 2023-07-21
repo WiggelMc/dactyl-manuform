@@ -736,14 +736,35 @@
     connector-bar
     (union
       (translate [0 -1.5 (/ connector-box-height 2)]
-        (cube (- connector-box-width 2) (- connector-box-depth 1) (- connector-box-height 2))
+        ; (cube (- connector-box-width 2) (- connector-box-depth 1) (- connector-box-height 2))
       )
       (translate [0 (/ connector-box-depth 2) 7.5]
         (union
-          (translate [-21.5 0 0] (cube 9 (* 10 2) 4.5))
-          (translate [-21.5 0 17] (cube 11 (* 10 2) 15))
-          (translate [10 0 17] (cube 2.5 (* 10 2) 2.5))
-          (translate [10 0 8] (cube 10 (* 10 2) 5))
+          ; usb
+          (translate [-21.5 0 0] 
+            (cube 9 (* 3 2) 4.5)
+            ; 12 15 10
+            ; * 12 *
+          )
+
+          ; rj9
+          (translate [-21.5 0 17]
+            (cube 11 (* 2 2) 15)
+            ; ? ? ?
+          )
+
+          ; reset
+          (translate [10 0 17]
+            (cube 2.5 (* 8 2) 2.5)
+            ; * 4 *
+          )
+
+          ; reset disable
+          (translate [10 0 8]
+            (cube 10 (* 1 2) 5)
+            ; 24 1 7
+            ; 16 * 7
+          )
         )
       )
     )
