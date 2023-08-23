@@ -694,7 +694,7 @@
         (key-place column row (translate [5 0 0] (wire-post  1 0)))))))
 
 
-(def connector-box-pos [-55 50.1 0])
+(def connector-box-pos [-53.3 50.1 0])
 (def connector-box-height 40)
 (def connector-box-width 60)
 (def connector-box-depth 40)
