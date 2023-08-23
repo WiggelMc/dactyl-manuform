@@ -27,8 +27,9 @@
 
 (defn column-offset [column] (cond
   (= column 2) [0 2.82 -4.5]
+  (= column 3) [0 0 0]
   (>= column 4) [0 -12 5.64]            ; original [0 -5.8 5.64]
-  :else [0 0 0]))
+  :else [0 -2 1]))
 
 (def thumb-offsets [6 -23 -6])
 
@@ -656,11 +657,12 @@
     )))
 
 (defn screw-insert-all-shapes [bottom-radius top-radius height]
-  (union (screw-insert 0 0         bottom-radius top-radius height)
-         (screw-insert 0 (- lastrow 0.6)   bottom-radius top-radius height)
-         (screw-insert 2 (+ lastrow 0.35)  bottom-radius top-radius height)
-         (screw-insert 3 0         bottom-radius top-radius height)
-         (screw-insert lastcol 1   bottom-radius top-radius height)
+  (union (translate [5 0 0] (screw-insert 0 0         bottom-radius top-radius height))
+         (translate [4 0 0] (screw-insert 0 (- lastrow 0.6)   bottom-radius top-radius height))
+         (translate [1 -76 0] (screw-insert 0 (- lastrow 0.6)   bottom-radius top-radius height))
+         (translate [5 0 0] (screw-insert 2 (+ lastrow 0.35)  bottom-radius top-radius height))
+         (translate [9.5 -5 0] (screw-insert 3 0         bottom-radius top-radius height))
+         (translate [0 0 0] (screw-insert lastcol 1   bottom-radius top-radius height))
          ))
 (def screw-insert-height 3.8)
 (def screw-insert-bottom-radius (/ 5.31 2))
@@ -781,7 +783,7 @@
 
 (def model-right 
   (union 
-    (translate (map + connector-box-pos [0 0 -100]) connector-object) 
+    ; (translate (map + connector-box-pos [0 0 -100]) connector-object) 
     (difference
       (union
         key-holes
