@@ -778,11 +778,18 @@
 
 
 
+(def connector-box-screw-pos-bottom 
+  (map + connector-box-pos [0 (/ connector-box-depth -4) 0])
+)
 
+(def connector-box-screw-pos-top
+  (map + connector-box-screw-pos-bottom [0 0 connector-box-height])
+)
 
 
 (def model-right 
   (union 
+    (translate connector-box-screw-pos-top (cube 10 10 10)) ;TODO: CHANGE TO SCREW INSERT
     ; (translate (map + connector-box-pos [0 0 -100]) connector-object) 
     (difference
       (union
