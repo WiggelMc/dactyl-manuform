@@ -8,3 +8,5 @@
 *.gcode
 *.scad
 /target
+/things/right-plate-1.dxf
+/things/right-1.stl
