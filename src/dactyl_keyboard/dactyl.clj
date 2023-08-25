@@ -672,9 +672,9 @@
     (translate [(first position) (second position) (/ height 2)])
   )
 )
-(def screw-insert-height 3.8)
-(def screw-insert-bottom-radius (/ 5.31 2))
-(def screw-insert-top-radius (/ 5.1 2))
+(def screw-insert-height 7)
+(def screw-insert-bottom-radius (/ 4.1 2))
+(def screw-insert-top-radius (/ 3.7 2))
 (def screw-insert-holes  (screw-insert-all-shapes screw-insert-bottom-radius screw-insert-top-radius screw-insert-height))
 (def screw-insert-outers (screw-insert-all-shapes (+ screw-insert-bottom-radius 1.6) (+ screw-insert-top-radius 1.6) (+ screw-insert-height 1.5)))
 (def screw-insert-screw-holes  (screw-insert-all-shapes 1.7 1.7 350))
@@ -827,6 +827,7 @@
             ; rj9-space
             ; usb-holder-hole
             screw-insert-holes
+            (translate [0 0 -0.1] screw-insert-holes)
           )
           ; rj9-holder
           ; wire-posts
@@ -842,6 +843,7 @@
     )
     (union
       (translate connector-box-screw-pos-top (screw-insert-hole-at-pos [0 0 0]))
+      (translate [0 0 -0.1] (translate connector-box-screw-pos-top (screw-insert-hole-at-pos [0 0 0])))
     )
   )
 )
