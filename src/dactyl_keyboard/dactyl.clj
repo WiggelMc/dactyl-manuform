@@ -687,6 +687,10 @@
   (screw-insert-shape-at-pos position screw-insert-bottom-radius screw-insert-top-radius screw-insert-height)
 )
 
+(defn screw-insert-screw-hole-at-pos [position]
+  (screw-insert-shape-at-pos position 1.7 1.7 350)
+)
+
 (def wire-post-height 7)
 (def wire-post-overhang 3.5)
 (def wire-post-diameter 2.6)
@@ -878,11 +882,18 @@
                    (cut
                      (translate [0 0 -0.1]
                        (difference (union case-walls
-                                          teensy-holder
+                                          ; teensy-holder
                                           ; rj9-holder
-                                          screw-insert-outers)
-                                   (translate [0 0 -10] screw-insert-screw-holes))
-                  ))))
+                                          screw-insert-outers
+                                          (translate connector-box-screw-pos-bottom (screw-insert-outer-at-pos [0 0 0])) ;TODO: Move into plate
+                                    )
+                                   (translate [0 0 -10] 
+                                    (union 
+                                    screw-insert-screw-holes
+                                    (translate connector-box-screw-pos-bottom (screw-insert-screw-hole-at-pos [0 0 0])) ;TODO: Move into plate
+                                   )
+                                   )
+                  )))))
 
 (spit "things/test.scad"
       (write-scad
