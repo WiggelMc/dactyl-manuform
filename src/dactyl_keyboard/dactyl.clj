@@ -811,7 +811,6 @@
   (difference
     (union 
       (translate connector-box-screw-pos-top (screw-insert-outer-at-pos [0 0 0]))
-      (translate connector-box-screw-pos-bottom (screw-insert-outer-at-pos [0 0 0])) ;TODO: Move into plate
       ; (translate (map + connector-box-pos [0 0 -100]) connector-object) 
       (difference
         (union
@@ -843,7 +842,6 @@
     )
     (union
       (translate connector-box-screw-pos-top (screw-insert-hole-at-pos [0 0 0]))
-      (translate connector-box-screw-pos-bottom (screw-insert-hole-at-pos [0 0 0])) ;TODO: Move into plate
     )
   )
 )
@@ -884,13 +882,14 @@
                        (difference (union case-walls
                                           ; teensy-holder
                                           ; rj9-holder
+                                          connector-frame
                                           screw-insert-outers
-                                          (translate connector-box-screw-pos-bottom (screw-insert-outer-at-pos [0 0 0])) ;TODO: Move into plate
+                                          (translate connector-box-screw-pos-bottom (screw-insert-outer-at-pos [0 0 0]))
                                     )
                                    (translate [0 0 -10] 
                                     (union 
                                     screw-insert-screw-holes
-                                    (translate connector-box-screw-pos-bottom (screw-insert-screw-hole-at-pos [0 0 0])) ;TODO: Move into plate
+                                    (translate connector-box-screw-pos-bottom (screw-insert-screw-hole-at-pos [0 0 0]))
                                    )
                                    )
                   )))))
