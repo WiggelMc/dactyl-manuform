@@ -796,10 +796,15 @@
 
 
 
-(def connector-box-screw-bottom-offset 1) ;TODO: Change offset
+(def connector-box-screw-bottom-offset 4)
+(def connector-box-screw-bottom-offset-2 5)
 
 (def connector-box-screw-pos-bottom 
   (map + connector-box-pos [0 (- (/ connector-box-depth 2) connector-box-screw-bottom-offset) 0])
+)
+
+(def connector-box-screw-pos-bottom-2
+  (map + connector-box-pos [(/ connector-box-width -4) (- connector-box-screw-bottom-offset-2 (/ connector-box-depth 2)) 0])
 )
 
 (def connector-box-screw-pos-top
@@ -887,11 +892,13 @@
                                           connector-frame
                                           screw-insert-outers
                                           (translate connector-box-screw-pos-bottom (screw-insert-outer-at-pos [0 0 0]))
+                                          (translate connector-box-screw-pos-bottom-2 (screw-insert-outer-at-pos [0 0 0]))
                                     )
                                    (translate [0 0 -10] 
                                     (union 
                                     screw-insert-screw-holes
                                     (translate connector-box-screw-pos-bottom (screw-insert-screw-hole-at-pos [0 0 0]))
+                                    (translate connector-box-screw-pos-bottom-2 (screw-insert-screw-hole-at-pos [0 0 0]))
                                    )
                                    )
                   )))))
