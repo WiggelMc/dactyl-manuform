@@ -663,13 +663,29 @@
          (translate [5 0 0] (screw-insert 2 (+ lastrow 0.35)  bottom-radius top-radius height))
          (translate [9.5 -5 0] (screw-insert 3 0         bottom-radius top-radius height))
          (translate [0 0 0] (screw-insert lastcol 1   bottom-radius top-radius height))
-         ))
+         ;TODO: Add code
+  )
+)
+
+(defn screw-insert-shape-at-pos [position bottom-radius top-radius height]
+  (->> (screw-insert-shape bottom-radius top-radius height)
+    (translate [(first position) (second position) (/ height 2)])
+  )
+)
 (def screw-insert-height 3.8)
 (def screw-insert-bottom-radius (/ 5.31 2))
 (def screw-insert-top-radius (/ 5.1 2))
 (def screw-insert-holes  (screw-insert-all-shapes screw-insert-bottom-radius screw-insert-top-radius screw-insert-height))
 (def screw-insert-outers (screw-insert-all-shapes (+ screw-insert-bottom-radius 1.6) (+ screw-insert-top-radius 1.6) (+ screw-insert-height 1.5)))
 (def screw-insert-screw-holes  (screw-insert-all-shapes 1.7 1.7 350))
+
+(defn screw-insert-outer-at-pos [position]
+  (screw-insert-shape-at-pos position (+ screw-insert-bottom-radius 1.6) (+ screw-insert-top-radius 1.6) (+ screw-insert-height 1.5))
+)
+
+(defn screw-insert-hole-at-pos [position]
+  (screw-insert-shape-at-pos position screw-insert-bottom-radius screw-insert-top-radius screw-insert-height)
+)
 
 (def wire-post-height 7)
 (def wire-post-overhang 3.5)
@@ -788,36 +804,42 @@
 
 
 (def model-right 
-  (union 
-    (translate connector-box-screw-pos-top (cube 10 10 10)) ;TODO: CHANGE TO SCREW INSERT
-    (translate connector-box-screw-pos-bottom (cube 10 10 10)) ;TODO: CHANGE TO SCREW INSERT
-    ; (translate (map + connector-box-pos [0 0 -100]) connector-object) 
-    (difference
-      (union
-        key-holes
-        connectors
-        thumb
-        thumb-connectors
-        (difference 
-          (union case-walls
-            screw-insert-outers
-            ; teensy-holder
-            ; usb-holder
+  (difference
+    (union 
+      (translate connector-box-screw-pos-top (screw-insert-outer-at-pos [0 0 0]))
+      (translate connector-box-screw-pos-bottom (screw-insert-outer-at-pos [0 0 0])) ;TODO: Move into plate
+      ; (translate (map + connector-box-pos [0 0 -100]) connector-object) 
+      (difference
+        (union
+          key-holes
+          connectors
+          thumb
+          thumb-connectors
+          (difference 
+            (union case-walls
+              screw-insert-outers
+              ; teensy-holder
+              ; usb-holder
+            )
+            ; rj9-space
+            ; usb-holder-hole
+            screw-insert-holes
           )
-          ; rj9-space
-          ; usb-holder-hole
-          screw-insert-holes
+          ; rj9-holder
+          ; wire-posts
+          ; thumbcaps
+          ; caps
+          connector-frame
         )
-        ; rj9-holder
-        ; wire-posts
-        ; thumbcaps
-        ; caps
-        connector-frame
+        (union 
+          (translate [0 0 -20] (cube 350 350 40))
+          connector-hole
+        )
       )
-      (union 
-        (translate [0 0 -20] (cube 350 350 40))
-        connector-hole
-      )
+    )
+    (union
+      (translate connector-box-screw-pos-top (screw-insert-hole-at-pos [0 0 0]))
+      (translate connector-box-screw-pos-bottom (screw-insert-hole-at-pos [0 0 0])) ;TODO: Move into plate
     )
   )
 )
