@@ -882,9 +882,8 @@
                                 ; wire-posts
                   )))
 
-(spit "things/right-plate.scad"
-      (write-scad
-                   (cut
+(def model-plate-right
+                  (cut
                      (translate [0 0 -0.1]
                        (difference (union case-walls
                                           ; teensy-holder
@@ -901,7 +900,20 @@
                                     (translate connector-box-screw-pos-bottom-2 (screw-insert-screw-hole-at-pos [0 0 0]))
                                    )
                                    )
-                  )))))
+                  )))
+)
+
+(spit "things/right-plate.scad"
+  (write-scad
+    model-plate-right
+  )
+)
+
+(spit "things/left-plate.scad"
+  (write-scad
+    (mirror [-1 0 0] model-plate-right)
+  )
+)
 
 (spit "things/test.scad"
       (write-scad
